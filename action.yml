@@ -1,9 +1,9 @@
 name: 'PHPCS Code Review'
 description: 'This will run phpcs on PRs'
-author: 'rtCamp'
+author: 'fatfaldog'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/rtcamp/action-phpcs-code-review:v2.1.0'
+  image: 'docker://ghcr.io/fatfaldog/action-phpcs-code-review:v3.0.0-beta'
 branding:
   icon: 'check-circle'
   color: 'green'

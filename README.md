@@ -1,9 +1,4 @@
-This action is a part of [GitHub Actions Library](https://github.com/rtCamp/github-actions-library/) created by [rtCamp](https://github.com/rtCamp/).
-
 # PHPCS Code Review - GitHub Action
-
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-
 
 A [GitHub Action](https://github.com/features/actions) to perform automated [pull request review](https://help.github.com/en/articles/about-pull-request-reviews). It is based on https://github.com/Automattic/vip-go-ci/ but can be used for any WordPress or even PHP projects.
 
@@ -28,17 +23,18 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+
     - name: Run PHPCS inspection
-      uses: rtCamp/action-phpcs-code-review@v2
+      uses: fatfaldog/action-phpcs-code-review@v3.0.0-beta
       env:
-        GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        GH_BOT_TOKEN: ${{ secrets.CS_USER_TOKEN }}
         SKIP_FOLDERS: "tests,.github"
-        PHPCS_SNIFFS_EXCLUDE: "WordPress.Files.FileName"
+        PHPCS_SNIFFS_EXCLUDE: ""
       with:
-        args: "WordPress,WordPress-Core,WordPress-Docs"
+        args: "phpcs-psr12.xml"
 ```
 
-3. Define `GH_BOT_TOKEN` using [GitHub Action's Secret](https://developer.github.com/actions/creating-workflows/storing-secrets). See [GitHub Token Creation](#github-token-creation) section for more details.
+3. Define `CS_USER_TOKEN` using [GitHub Action's Secret](https://developer.github.com/actions/creating-workflows/storing-secrets). See [GitHub Token Creation](#github-token-creation) section for more details.
 
 Now, next time you create a pull request or commit on an existing pull request, this action will run.
 
@@ -165,13 +161,6 @@ Here is a sample [phpcs.xml](https://github.com/rtCamp/github-actions-wordpress-
 
 If you have custom coding standards from your git repository, you can use composer and use `phpcs` from execution from your repository phpcs file with the help of `PHPCS_FILE_PATH` environment variable.
 
-## Screenshot
-
-**Automated Code Review in action**
-
-<img width="770" alt="Automated PHPCS Code Review" src="https://user-images.githubusercontent.com/4115/55004924-20621900-5001-11e9-9363-fd6f9a99170e.png">
-
-
 ## Limitations
 
 Please note...
@@ -179,11 +168,3 @@ Please note...
 1. This action runs only for PRs. It even runs on new commits pushed after a PR is created.
 2. This action doesn't run on code in the repository added before this action.
 3. This action doesn't run for code committed directly to a branch. We highly recommend that you disable direct commits to your main/master branch.
-
-## License
-
-[MIT](LICENSE) © 2019 rtCamp
-
-## Does this interest you?
-
-<a href="https://rtcamp.com/"><img src="https://rtcamp.com/wp-content/uploads/2019/04/github-banner@2x.png" alt="Join us at rtCamp, we specialize in providing high performance enterprise WordPress solutions"></a>
